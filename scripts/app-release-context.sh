@@ -5,6 +5,7 @@
 #
 # Usage: scripts/app-release-context.sh 0.36.0
 # A release has shipped once its "Release <version>" PR from staging to main
+# (titled "release: promote v<version> to main" up to 0.26.0)
 # has merged. An open release PR is reported as not shipped, and its
 # CHANGELOG section is read from staging.
 # Needs: gh, authenticated with read access to simplybenuk/wolds-record.
@@ -18,9 +19,9 @@ version="${version#v}"
 # One line per release PR, oldest first: number state mergedAt|- title
 releases="$(gh pr list --repo "$APP_REPO" --base main --head staging --state all --limit 100 \
   --json number,state,mergedAt,title \
-  --jq '[.[] | select(.title | test("^Release v?[0-9]"))] | sort_by(.number) | .[] | "\(.number) \(.state) \(.mergedAt // "-") \(.title)"')"
+  --jq '[.[] | select(.title | test("^(Release|release: promote) v?[0-9]"))] | sort_by(.number) | .[] | "\(.number) \(.state) \(.mergedAt // "-") \(.title)"')"
 
-pattern="^[0-9]+ [A-Z]+ [^ ]+ Release v?${version//./\\.}([^0-9.]|$)"
+pattern="^[0-9]+ [A-Z]+ [^ ]+ (Release|release: promote) v?${version//./\\.}([^0-9.]|$)"
 current="$(grep -E "$pattern" <<<"$releases" | tail -n1 || true)"
 [ -n "$current" ] || { echo "No 'Release $version' PR from staging to main in $APP_REPO" >&2; exit 1; }
 read -r release_pr release_state release_merged _ <<<"$current"

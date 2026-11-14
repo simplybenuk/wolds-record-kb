@@ -160,19 +160,26 @@ error, and print the PR body so the person can open it.
 
 ## Permissions for unattended runs
 
-Manual runs use the operator's own `gh` login, so the read-only boundary on
-the app repository is an instruction, not a technical control. Before
-scheduling the agent, give it a fine-grained token with only:
+Manual runs use the operator's own `gh` login. That login is the repository
+admin, so every boundary in this procedure is an instruction, not a technical
+control: the agent could merge its own PR or push past branch protection.
+Someone must review each manual run's PR before merging it.
 
-- `simplybenuk/wolds-record`: Contents read, Pull requests read, Issues read,
-  Metadata read.
-- `simplybenuk/wolds-record-kb`: Contents read and write, Pull requests read
-  and write, Metadata read.
+Do not schedule the agent until all of these are in place:
 
-Contents write on `wolds-record-kb` also allows pushing to `gh-pages`,
-which publishes the site at once. Branch protection on `main` (a pull
-request and the `validate` check) stops publishing through `main`, but not
-through `gh-pages`. Before scheduling, add a ruleset on `gh-pages` that
-blocks updates except from GitHub Actions, so only `docs-deploy` can
-publish. Until then, an unattended token can publish without approval.
+- **A separate, non-admin identity**, such as a GitHub App or a machine
+  account with the Write role on `wolds-record-kb` and Read on
+  `wolds-record`. Never schedule with an admin's token, because an admin
+  bypasses branch protection here.
+- **Token scope**: on `simplybenuk/wolds-record`, Contents, Pull requests,
+  Issues and Metadata read; on `simplybenuk/wolds-record-kb`, Contents and
+  Pull requests read and write, and Metadata read.
+- **`main` protection that the identity cannot satisfy alone**: a pull request
+  with one approving review from someone else, plus the `validate` check. With
+  no approval required, a Contents-write token can merge its own PR, and
+  merging publishes.
+- **A `gh-pages` ruleset** that blocks updates from everyone except GitHub
+  Actions, with no bypass for the agent's identity. Contents write otherwise
+  lets it publish by pushing to `gh-pages` directly.
+
 Measure the quality and cost of several manual runs before scheduling.
