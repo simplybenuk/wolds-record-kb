@@ -37,7 +37,7 @@ Before opening a pull request, run the same checks as CI:
 
 ```bash
 mkdocs build --strict
-npx markdownlint-cli2 "**/*.md" "!site/**" "!.venv/**"
+npx markdownlint-cli2@0.24.0 "**/*.md" "!site/**" "!.github/**" "!.venv/**"
 ```
 
 CI also checks links with [lychee](https://lychee.cli.rs/). Run

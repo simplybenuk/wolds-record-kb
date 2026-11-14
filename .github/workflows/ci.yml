@@ -41,6 +41,7 @@ jobs:
           globs: |
             **/*.md
             !site/**
+            !.github/**
 
       - name: Check markdown links
         uses: lycheeverse/lychee-action@v2
