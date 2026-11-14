@@ -1,0 +1,50 @@
+name: docs-ci
+
+# Runs on every pull request, including drafts, without path filters, so the
+# `validate` check can be required on main without ever staying pending.
+# Public repository: Actions minutes are free.
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: '3.11'
+
+      - name: Install docs dependencies
+        run: pip install -r requirements-docs.txt
+
+      - name: Validate MkDocs build
+        run: mkdocs build --strict
+
+      - name: Check the custom domain is published
+        run: test "$(cat site/CNAME)" = "help.woldsrecord.com"
+
+      - name: Lint markdown
+        uses: DavidAnson/markdownlint-cli2-action@v25
+        with:
+          globs: |
+            **/*.md
+            !site/**
+            !.github/**
+
+      - name: Check markdown links
+        uses: lycheeverse/lychee-action@v2
+        with:
+          failIfEmpty: false
+          args: --config .lychee.toml --exclude-path site "./**/*.md"

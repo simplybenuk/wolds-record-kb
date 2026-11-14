@@ -3,3 +3,5 @@ include_mail = false
 accept = [200, 206, 429]
 max_retries = 2
 retry_wait_time = 2
+# The application repository is private, so its links answer 404 to CI.
+exclude = ['^https://github\.com/simplybenuk/wolds-record($|[/?#])']
