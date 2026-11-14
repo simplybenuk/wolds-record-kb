@@ -167,19 +167,22 @@ Someone must review each manual run's PR before merging it.
 
 Do not schedule the agent until all of these are in place:
 
-- **A separate, non-admin identity**, such as a GitHub App or a machine
-  account with the Write role on `wolds-record-kb` and Read on
-  `wolds-record`. Never schedule with an admin's token, because an admin
-  bypasses branch protection here.
-- **Token scope**: on `simplybenuk/wolds-record`, Contents, Pull requests,
-  Issues and Metadata read; on `simplybenuk/wolds-record-kb`, Contents and
-  Pull requests read and write, and Metadata read.
-- **`main` protection that the identity cannot satisfy alone**: a pull request
-  with one approving review from someone else, plus the `validate` check. With
-  no approval required, a Contents-write token can merge its own PR, and
-  merging publishes.
+- **A GitHub App as the agent's identity**, installed on both repositories
+  with only: on `simplybenuk/wolds-record`, Contents, Pull requests, Issues
+  and Metadata read; on `simplybenuk/wolds-record-kb`, Contents and Pull
+  requests read and write, and Metadata read. Do not use an admin's token,
+  which bypasses branch protection here. Do not use a machine account: these
+  repositories belong to a personal account, so a collaborator cannot be
+  read-only on the private app repository, and fine-grained tokens do not
+  cover collaborator access.
+- **`main` protection that the App cannot satisfy alone**: a pull request,
+  the `validate` check, one approving review, **Dismiss stale pull request
+  approvals when new commits are pushed** and **Require approval of the most
+  recent reviewable push**. Without the last two, the App could push after
+  the owner approves and merge content nobody reviewed, and merging
+  publishes. The owner, as admin, is the approver and can still bypass.
 - **A `gh-pages` ruleset** that blocks updates from everyone except GitHub
-  Actions, with no bypass for the agent's identity. Contents write otherwise
-  lets it publish by pushing to `gh-pages` directly.
+  Actions, with no bypass for the App. Contents write otherwise lets it
+  publish by pushing to `gh-pages` directly.
 
 Measure the quality and cost of several manual runs before scheduling.
