@@ -1,0 +1,43 @@
+site_name: Wolds Record Knowledge Base
+docs_dir: knowledge-base
+site_description: End-user documentation for Wolds Record organisations and practitioners
+site_url: https://help.woldsrecord.com/
+repo_url: https://github.com/simplybenuk/wolds-record-kb
+repo_name: simplybenuk/wolds-record-kb
+edit_uri: edit/main/knowledge-base/
+site_dir: site
+strict: true
+
+theme:
+  name: material
+  features:
+    - navigation.instant
+    - navigation.sections
+    - content.code.copy
+
+markdown_extensions:
+  - admonition
+  - toc:
+      permalink: true
+  - tables
+
+plugins:
+  - search
+
+nav:
+  - Home: index.md
+  - Product overview: product/overview.md
+  - Getting started:
+      - Sign in and account setup: getting-started/sign-in-and-account.md
+      - Organisation onboarding: getting-started/organisation-onboarding.md
+  - User guides:
+      - Manage profile: user-guides/manage-profile.md
+      - Onboarding: user-guides/onboarding.md
+      - Dashboard and search: user-guides/dashboard-and-search.md
+      - Clients and dogs: user-guides/clients-and-dogs.md
+      - Create and manage cases: user-guides/create-and-manage-cases.md
+      - Record sessions: user-guides/record-sessions.md
+      - Vet reports: user-guides/vet-reports.md
+      - Vet practices: user-guides/vet-practices.md
+      - Organisation settings and export: user-guides/organisation-settings-and-export.md
+      - Common access and error messages: user-guides/common-access-and-error-messages.md
