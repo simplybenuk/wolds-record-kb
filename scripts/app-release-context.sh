@@ -59,13 +59,15 @@ echo
 since="${previous_merged:-2000-01-01T00:00:00Z}"
 gh pr list --repo "$APP_REPO" --base staging --state merged --limit 200 \
   --search "merged:$since..$until" \
-  --json number,title,mergedAt,files \
-  --jq 'sort_by(.mergedAt) | .[] | "- #\(.number) \(.title) [areas: \([.files[].path | split("/")[0]] | unique | join(", "))]"'
+  --json number,title,mergedAt,files,closingIssuesReferences \
+  --jq 'sort_by(.mergedAt) | .[] | "- #\(.number) \(.title) [areas: \([.files[].path | split("/")[0]] | unique | join(", "))]\(if (.closingIssuesReferences | length) > 0 then " closes: " + ([.closingIssuesReferences[] | "#\(.number)"] | join(", ")) else "" end)"'
 echo
 
 echo "## Issues and PRs referenced in the CHANGELOG section"
 echo
-for n in $(grep -oE '#[0-9]+' <<<"$section" | tr -d '#' | sort -un); do
+refs="$(grep -oE '#[0-9]+' <<<"$section" | tr -d '#' | sort -un || true)"
+[ -n "$refs" ] || echo "(none)"
+for n in $refs; do
   gh issue view "$n" --repo "$APP_REPO" --json number,title,state,url \
     --jq '"- #\(.number) [\(.state)] \(.title) \(.url)"' 2>/dev/null || echo "- #$n (not found)"
 done

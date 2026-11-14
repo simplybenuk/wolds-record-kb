@@ -16,6 +16,13 @@ The person running the agent gives one of:
 
 If none is given, ask for a release version. Do not guess one.
 
+Start from a branch that does not track `main`:
+
+```bash
+git fetch origin
+git switch --no-track -c docs/<version or topic> origin/main
+```
+
 ## Boundaries
 
 These apply on top of [AGENTS.md](../AGENTS.md).
@@ -34,9 +41,20 @@ These apply on top of [AGENTS.md](../AGENTS.md).
   `staging`-only work describe intent; they are not evidence that a feature
   exists. When a feature is limited, for example to Calendar beta
   organisations or Stripe test mode, say so on the page.
+- **Reachable behaviour only.** Merged code that users cannot reach yet is
+  not available: for example, code behind an environment flag that is off in
+  production, a beta flag, or links that only a disabled email sends. Find
+  such gates in the code and in the CHANGELOG wording, never by reading
+  environment values. Leave the change undocumented and list it in the PR.
 - **Smallest useful change.** Extend an existing page before adding one.
   Do not rewrite pages that are still accurate, restyle unrelated text or
-  rename existing pages.
+  rename existing pages. If the release adds to a feature the help site does
+  not cover at all, do not write a partial page for this release's slice.
+  List it in the PR as an open question with a suggested page outline, and
+  leave the decision to the owner.
+- **Nearby errors.** If a line you are already editing has a wrong label or
+  fact that predates the release, fix it after checking the code, and list it
+  separately in the PR. Do not search unrelated pages for errors.
 
 ## Procedure
 
@@ -73,7 +91,9 @@ Write a short list: change, source PRs, and who it affects.
 For each kept change, read the merged code on `main`, not only the PR text:
 routes and components under `app/`, logic under `src/`, and visible copy.
 Note the exact on-screen labels, where the feature lives in the navigation,
-who can use it (role, plan, beta flag), and any limits. Use specifications
+who can use it (role, plan, beta flag), and any limits. Check permissions in
+the server code (`app/api/`, server actions, `src/` access helpers), not only
+in the UI: a button can show for roles that the server then refuses. Use specifications
 under `spec/` only to understand intent, and check every claim against code.
 
 If the code and the PR description disagree, follow the code and mention the
@@ -99,7 +119,9 @@ terms). Classify each one:
 - For a new page, add it to `nav` in `mkdocs.yml` in the matching section, and
   link to it from at least one related page. Use relative links to `.md`
   files.
-- Do not add screenshots. List the screenshots that would help in the PR.
+- Do not add screenshots. In the PR, list each screenshot that would help by
+  page, section, screen and state, for example "Record sessions, Switch
+  session form: the Switch session form? dialog".
 
 ### 6. Validate
 
@@ -108,13 +130,14 @@ mkdocs build --strict
 npx markdownlint-cli2@0.24.0 "**/*.md" "!site/**" "!.github/**" "!.venv/**"
 ```
 
-Run lychee too if it is available (see the README). Fix every error before
-opening the PR.
+Run lychee too if it is available, with the command in the README. Fix every
+error before opening the PR.
 
 ### 7. Open a draft PR
 
-Commit on the feature branch, push it, and open a draft PR to `main` with
-`gh pr create --draft`. Fill in the template:
+Commit on the feature branch. Check that `git branch --show-current` is the
+feature branch, then push it with `git push -u origin HEAD` and open a draft
+PR to `main` with `gh pr create --draft --base main`. Fill in the template:
 
 - **Summary**: what readers can now find.
 - **Source**: the release PR and each application PR or issue used, as full
@@ -124,8 +147,8 @@ Commit on the feature branch, push it, and open a draft PR to `main` with
   `nav` change.
 - **Checks**: what you ran, and which facts you confirmed in code (file paths).
 - **Screenshots**: the screenshots to add or update.
-- Also list changes you chose not to document and why, and any open
-  questions for the owner.
+- Also list changes you chose not to document and why, nearby errors you
+  fixed, and any open questions for the owner.
 
 Do not mark the PR ready and do not merge it.
 
