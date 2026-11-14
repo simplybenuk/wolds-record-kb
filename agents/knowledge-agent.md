@@ -169,6 +169,10 @@ scheduling the agent, give it a fine-grained token with only:
 - `simplybenuk/wolds-record-kb`: Contents read and write, Pull requests read
   and write, Metadata read.
 
-Branch protection on `main` should require a pull request and the `validate`
-check, so the token cannot publish by pushing to `main`. Measure the quality
-and cost of several manual runs before scheduling.
+Contents write on `wolds-record-kb` also allows pushing to `gh-pages`,
+which publishes the site at once. Branch protection on `main` (a pull
+request and the `validate` check) stops publishing through `main`, but not
+through `gh-pages`. Before scheduling, add a ruleset on `gh-pages` that
+blocks updates except from GitHub Actions, so only `docs-deploy` can
+publish. Until then, an unattended token can publish without approval.
+Measure the quality and cost of several manual runs before scheduling.

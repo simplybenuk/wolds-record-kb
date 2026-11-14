@@ -18,14 +18,17 @@ version="${version#v}"
 # One line per release PR, oldest first: number state mergedAt|- title
 releases="$(gh pr list --repo "$APP_REPO" --base main --head staging --state all --limit 100 \
   --json number,state,mergedAt,title \
-  --jq '[.[] | select(.title | test("^Release [0-9]"))] | sort_by(.number) | .[] | "\(.number) \(.state) \(.mergedAt // "-") \(.title)"')"
+  --jq '[.[] | select(.title | test("^Release v?[0-9]"))] | sort_by(.number) | .[] | "\(.number) \(.state) \(.mergedAt // "-") \(.title)"')"
 
-pattern="^[0-9]+ [A-Z]+ [^ ]+ Release ${version//./\\.}([^0-9.]|$)"
+pattern="^[0-9]+ [A-Z]+ [^ ]+ Release v?${version//./\\.}([^0-9.]|$)"
 current="$(grep -E "$pattern" <<<"$releases" | tail -n1 || true)"
 [ -n "$current" ] || { echo "No 'Release $version' PR from staging to main in $APP_REPO" >&2; exit 1; }
 read -r release_pr release_state release_merged _ <<<"$current"
-previous="$(grep -B1 -E "$pattern" <<<"$releases" | grep -E '^[0-9]+ MERGED ' | grep -v "^$release_pr " | tail -n1 || true)"
-previous_merged="$(awk '{ print $3 }' <<<"$previous")"
+# The latest other release that merged before this one (or at all, if this
+# one is still open). Merge times are ISO 8601, so they compare as strings.
+previous_merged="$(awk -v pr="$release_pr" -v until="$release_merged" '
+  $2 == "MERGED" && $1 != pr && (until == "-" || $3 < until) && $3 > latest { latest = $3 }
+  END { print latest }' <<<"$releases")"
 
 if [ "$release_state" = "MERGED" ]; then
   ref=main
