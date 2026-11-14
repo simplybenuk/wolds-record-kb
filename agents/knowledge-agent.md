@@ -167,22 +167,27 @@ Someone must review each manual run's PR before merging it.
 
 Do not schedule the agent until all of these are in place:
 
-- **A GitHub App as the agent's identity**, installed on both repositories
-  with only: on `simplybenuk/wolds-record`, Contents, Pull requests, Issues
-  and Metadata read; on `simplybenuk/wolds-record-kb`, Contents and Pull
-  requests read and write, and Metadata read. Do not use an admin's token,
-  which bypasses branch protection here. Do not use a machine account: these
-  repositories belong to a personal account, so a collaborator cannot be
-  read-only on the private app repository, and fine-grained tokens do not
-  cover collaborator access.
-- **`main` protection that the App cannot satisfy alone**: a pull request,
+- **Two GitHub Apps as the agent's identity**, because an App's permissions
+  apply to every repository it is installed on:
+  - a reader App installed only on `simplybenuk/wolds-record`, with Contents,
+    Pull requests, Issues and Metadata read;
+  - a writer App installed only on `simplybenuk/wolds-record-kb`, with
+    Contents and Pull requests read and write, and Metadata read.
+
+  The scheduler creates short-lived installation tokens and gives them to the
+  agent. The agent never holds either App's private key, which could mint
+  other tokens. Do not use an admin's token, which bypasses branch protection
+  here. Do not use a machine account: these repositories belong to a personal
+  account, so a collaborator cannot be read-only on the private app
+  repository, and fine-grained tokens do not cover collaborator access.
+- **`main` protection that the writer App cannot satisfy alone**: a pull request,
   the `validate` check, one approving review, **Dismiss stale pull request
   approvals when new commits are pushed** and **Require approval of the most
-  recent reviewable push**. Without the last two, the App could push after
+  recent reviewable push**. Without the last two, the writer App could push after
   the owner approves and merge content nobody reviewed, and merging
   publishes. The owner, as admin, is the approver and can still bypass.
 - **A `gh-pages` ruleset** that blocks updates from everyone except GitHub
-  Actions, with no bypass for the App. Contents write otherwise lets it
+  Actions, with no bypass for either App. Contents write otherwise lets it
   publish by pushing to `gh-pages` directly.
 
 Measure the quality and cost of several manual runs before scheduling.
