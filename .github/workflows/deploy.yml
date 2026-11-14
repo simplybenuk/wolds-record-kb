@@ -1,0 +1,74 @@
+name: docs-deploy
+
+# Publishes main to the gh-pages branch that serves help.woldsrecord.com.
+# Uses the repository's own GITHUB_TOKEN; no personal access token is needed.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  # Queue deploys rather than cancelling one mid-push.
+  group: docs-public-deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pages: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: '3.11'
+
+      - name: Install docs dependencies
+        run: pip install -r requirements-docs.txt
+
+      - name: Build MkDocs site
+        run: mkdocs build --strict
+
+      - name: Check the custom domain is published
+        run: test "$(cat site/CNAME)" = "help.woldsrecord.com"
+
+      # Keeps gh-pages history (no force_orphan) so a bad deploy can be
+      # reverted on gh-pages. See README.md, "Roll back a deploy".
+      - name: Publish to gh-pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./site
+          publish_branch: gh-pages
+          enable_jekyll: false
+          full_commit_message: 'deploy: ${{ github.repository }}@${{ github.sha }}'
+
+      - name: Wait for GitHub Pages to serve the new commit
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          expected="$(git ls-remote origin refs/heads/gh-pages | cut -f1)"
+          for attempt in $(seq 1 30); do
+            read -r status commit < <(gh api "repos/$GITHUB_REPOSITORY/pages/builds/latest" --jq '"\(.status) \(.commit)"')
+            echo "Attempt $attempt: Pages build $status for ${commit:0:8}, expecting ${expected:0:8}"
+            if [ "$commit" = "$expected" ] && [ "$status" = "built" ]; then break; fi
+            if [ "$commit" = "$expected" ] && [ "$status" = "errored" ]; then exit 1; fi
+            sleep 10
+          done
+          [ "$commit" = "$expected" ] && [ "$status" = "built" ]
+
+      - name: Smoke test help.woldsrecord.com
+        run: |
+          for path in / /user-guides/record-sessions/ /search/search_index.json /sitemap.xml; do
+            curl --fail --silent --show-error --location --retry 5 --retry-delay 10 \
+              --output /dev/null "https://help.woldsrecord.com$path"
+            echo "OK $path"
+          done
