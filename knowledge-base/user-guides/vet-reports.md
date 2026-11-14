@@ -7,12 +7,15 @@ Use vet reports to generate practitioner-to-vet summaries from session and case 
 1. Open a session.
 2. Select **Vet report**.
 
-## Typical report sections
+## Report sections
 
-- Past medical history
-- Current medication
-- Intro / letter context
-- Clinical and treatment summary areas
+- **Pre-session notes**: past medical history and current medication
+- **Letter intro**
+- **Reason for session**
+- **Assessment findings**
+- **Therapy session**
+- **Treatment & rehabilitation plan**
+- **Letter sign off**
 
 ## Save and export
 
