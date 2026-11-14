@@ -27,3 +27,12 @@ local checks and publishing process.
 4. Open a draft pull request using the template, and say what you checked.
 
 Follow the writing guidelines in the README.
+
+## Knowledge agent
+
+To document shipped app changes, follow
+[agents/knowledge-agent.md](agents/knowledge-agent.md). Entry points:
+
+- Antigravity: the `/update-kb` workflow in `.agent/workflows/`.
+- Agents that load skills from `.agents/skills/`: the `update-kb` skill.
+- Any other agent: give it the procedure file and a release version.

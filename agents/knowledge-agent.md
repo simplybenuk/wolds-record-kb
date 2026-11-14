@@ -1,0 +1,151 @@
+# Knowledge agent: update the help site from app changes
+
+Use this procedure to find shipped Wolds Record changes that the help site
+does not cover yet, and to propose documentation for them as one draft pull
+request in this repository. It works with any coding agent that can run a
+shell, `git` and `gh`. Antigravity, Claude Code and Codex have thin entry
+points that point here.
+
+## Inputs
+
+The person running the agent gives one of:
+
+- a release version, for example `0.36.0` (preferred), or
+- one or more application PR numbers, or
+- a date range of merged application PRs.
+
+If none is given, ask for a release version. Do not guess one.
+
+## Boundaries
+
+These apply on top of [AGENTS.md](../AGENTS.md).
+
+- **Application repository (`simplybenuk/wolds-record`): read only.** Read it
+  with `gh` or with a fresh clone in a temporary directory. Never push, open
+  or edit PRs or issues, comment, or run its scripts, tests, migrations or app.
+- **This repository: feature branches only.** Branch from `main`, named
+  `docs/<release or topic>`. Never push to `main` or `gh-pages`. Never merge,
+  mark a PR ready, trigger `docs-deploy` or change settings.
+- **No production data or secrets.** Do not use Supabase, Vercel, Stripe,
+  PostHog, Resend or any production connector, and do not read `.env` files.
+  The app repository's code, specifications, CHANGELOG and PRs are enough.
+- **Shipped behaviour only.** A change is shipped when its release PR from
+  `staging` to `main` has merged. Specifications, plans, open PRs and
+  `staging`-only work describe intent; they are not evidence that a feature
+  exists. When a feature is limited, for example to Calendar beta
+  organisations or Stripe test mode, say so on the page.
+- **Smallest useful change.** Extend an existing page before adding one.
+  Do not rewrite pages that are still accurate, restyle unrelated text or
+  rename existing pages.
+
+## Procedure
+
+### 1. Gather the changes
+
+For a release, run:
+
+```bash
+scripts/app-release-context.sh <version>
+```
+
+It prints the release PR and whether it has shipped, the CHANGELOG section,
+the PRs merged to `staging` since the previous release, and the issues the
+CHANGELOG references. If it reports the release as not shipped, stop and tell
+the person; offer to rerun after the release reaches `main`.
+
+For PR numbers or a date range, read each PR with
+`gh pr view <n> --repo simplybenuk/wolds-record --json title,body,files,mergedAt,baseRefName`
+and confirm each change has reached `main`
+(`gh api repos/simplybenuk/wolds-record/compare/<merge sha>...main --jq .status`
+answers `ahead` or `identical` when it has).
+
+### 2. Pick the user-facing changes
+
+Keep changes a practitioner, organisation owner or dog owner would notice:
+new screens, settings, actions, labels, emails, limits, permissions and error
+messages. Drop CI, tests, QA tooling, dependency updates, refactors, internal
+docs and changes with no visible effect.
+
+Write a short list: change, source PRs, and who it affects.
+
+### 3. Confirm the behaviour in code
+
+For each kept change, read the merged code on `main`, not only the PR text:
+routes and components under `app/`, logic under `src/`, and visible copy.
+Note the exact on-screen labels, where the feature lives in the navigation,
+who can use it (role, plan, beta flag), and any limits. Use specifications
+under `spec/` only to understand intent, and check every claim against code.
+
+If the code and the PR description disagree, follow the code and mention the
+difference in the PR.
+
+### 4. Compare with the help site
+
+Search `knowledge-base/` for each change (`grep -ril` on its labels and
+terms). Classify each one:
+
+- **covered**: the page is accurate; no change.
+- **outdated**: a page describes old behaviour; correct it.
+- **missing**: nothing covers it; add a section to the closest existing page,
+  or a new page if no page fits.
+
+### 5. Write the documentation
+
+- Follow the writing guidelines in [README.md](../README.md#writing-guidelines).
+- Lead with the task the reader wants to do, then numbered steps that use the
+  app's exact labels.
+- Use the app's terms for things. Look at how existing pages name things such
+  as organisation, case, session and vet report, and match them.
+- For a new page, add it to `nav` in `mkdocs.yml` in the matching section, and
+  link to it from at least one related page. Use relative links to `.md`
+  files.
+- Do not add screenshots. List the screenshots that would help in the PR.
+
+### 6. Validate
+
+```bash
+mkdocs build --strict
+npx markdownlint-cli2@0.24.0 "**/*.md" "!site/**" "!.github/**" "!.venv/**"
+```
+
+Run lychee too if it is available (see the README). Fix every error before
+opening the PR.
+
+### 7. Open a draft PR
+
+Commit on the feature branch, push it, and open a draft PR to `main` with
+`gh pr create --draft`. Fill in the template:
+
+- **Summary**: what readers can now find.
+- **Source**: the release PR and each application PR or issue used, as full
+  `https://github.com/simplybenuk/wolds-record/...` links. They are private to
+  the app repository, so also give the PR title.
+- **Pages changed**: each page with covered, outdated or missing, and any
+  `nav` change.
+- **Checks**: what you ran, and which facts you confirmed in code (file paths).
+- **Screenshots**: the screenshots to add or update.
+- Also list changes you chose not to document and why, and any open
+  questions for the owner.
+
+Do not mark the PR ready and do not merge it.
+
+### 8. Report
+
+Tell the person the PR URL, what was documented, what was skipped, and any
+questions. If `gh` cannot push or open the PR, keep the branch, give the exact
+error, and print the PR body so the person can open it.
+
+## Permissions for unattended runs
+
+Manual runs use the operator's own `gh` login, so the read-only boundary on
+the app repository is an instruction, not a technical control. Before
+scheduling the agent, give it a fine-grained token with only:
+
+- `simplybenuk/wolds-record`: Contents read, Pull requests read, Issues read,
+  Metadata read.
+- `simplybenuk/wolds-record-kb`: Contents read and write, Pull requests read
+  and write, Metadata read.
+
+Branch protection on `main` should require a pull request and the `validate`
+check, so the token cannot publish by pushing to `main`. Measure the quality
+and cost of several manual runs before scheduling.
