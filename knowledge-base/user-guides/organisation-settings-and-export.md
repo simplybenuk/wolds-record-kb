@@ -8,7 +8,7 @@ Use **Edit details** on the **Organisation details** card to update contact deta
 
 ## Beta access
 
-Owners and admins can switch beta access on or off from the **Beta access** card. The change saves straight away and applies to everyone in the organisation. Turning it off asks for confirmation first, because Calendar and public booking links stop working until it is turned back on. Booking data is kept.
+Owners and admins can switch beta access on or off from the **Beta access** card. The change saves straight away and applies to everyone in the organisation. Turning it off asks for confirmation first, because Calendar and public booking links stop working until it is turned back on. Booking data is kept. See [Calendar (beta)](calendar.md) for full diary and booking guidance.
 
 ## Billing
 

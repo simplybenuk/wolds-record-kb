@@ -39,5 +39,6 @@ nav:
       - Record sessions: user-guides/record-sessions.md
       - Vet reports: user-guides/vet-reports.md
       - Vet practices: user-guides/vet-practices.md
+      - Calendar (beta): user-guides/calendar.md
       - Organisation settings and export: user-guides/organisation-settings-and-export.md
       - Common access and error messages: user-guides/common-access-and-error-messages.md
