@@ -2,7 +2,10 @@
 
 ## Create a new session
 
-From a case page, select **New session**.
+You can start a new session from a case page or from the dashboard:
+
+- **From a case page**: select **Create session**.
+- **From the dashboard or sessions list**: select **New Session**, then search for the client or dog under **Search client or dog** and choose an open case.
 
 ### Required
 
@@ -28,4 +31,4 @@ The session editor includes a context rail to keep case/dog/client context visib
 
 ## Save behavior
 
-Select **Create session** to save. If required fields are missing, inline errors are shown before save completes.
+Select **Save** to save the session. If required fields are missing, inline errors are shown before save completes.
