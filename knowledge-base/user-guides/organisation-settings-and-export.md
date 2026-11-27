@@ -4,7 +4,7 @@
 
 Open **Organisation settings** to review and maintain core details for your active organisation, including contact and branding-related fields used across the system.
 
-Use **Edit details** on the **Organisation details** card to update contact details, the timezone, the default session form and vet report branding.
+Use **Edit details** on the **Organisation details** card to update contact details, the timezone and vet report branding.
 
 ## Beta access
 
@@ -19,10 +19,25 @@ Only owners and admins can start or manage subscriptions. Members see the plan d
 ### Plans and upgrades
 
 - **Free**: includes standard session limits. Owners and admins can select **Upgrade to Starter** (or **Start first month free** if eligible) or **Choose Pro monthly**.
-- **Starter**: includes unlimited sessions. Owners and admins can select **Choose Pro monthly** or **Manage billing**.
-- **Pro**: includes unlimited sessions and premium features. Owners and admins can select **Manage billing**.
+- **Starter**: includes unlimited sessions. Owners and admins can switch plan or billing interval, or select **Manage billing**.
+- **Pro**: includes unlimited sessions and premium features. Owners and admins can switch plan or billing interval, or select **Manage billing**.
 
 Subscriptions renew automatically each month or year until cancelled.
+
+#### Change your plan or billing interval
+
+Owners and admins with an active subscription can switch plan, or between
+monthly and yearly billing, from the **Billing** card:
+
+1. Select **Switch to** next to the plan and interval you want.
+2. Read the price preview. It shows what Stripe will charge now, or credit to
+   your next invoices, for the rest of the billing period.
+3. Select **Confirm switch**, or **Keep current plan** to cancel.
+
+The change applies straight away. Switching to yearly or monthly billing moves
+your renewal date to today. Switching from Pro to Starter stops branded vet
+reports and organisation export, but your saved logo and records are kept. If
+the payment fails, your plan stays as it is.
 
 ### Manage or cancel a subscription
 
