@@ -56,6 +56,8 @@ vet declaration before the first session. The steps are:
 Each step links to where you complete it. When every step is done, the
 checklist is replaced by **Setup complete**.
 
+![The Overview tab of a dog record showing Set up this treatment record, 1 of 4 done. Owner consent is recorded. Veterinary declaration, treatment details and first session are not done yet.](../assets/screenshots/dog-record-setup-checklist.png)
+
 ### Record consent you already hold
 
 If you received owner consent or a vet declaration outside Wolds Record, for
