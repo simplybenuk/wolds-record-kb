@@ -44,18 +44,45 @@ Selecting an appointment opens a drawer with appointment details, linked client 
 
 ## Booking requests
 
-When dog owners request an appointment through your public booking page, their request appears under **Requests**.
+When dog owners request an appointment through your public booking page, their
+request appears under **Requests**. Pending requests also appear in the
+header **Notifications** tray, and selecting one opens it for review.
+
+**Requests** has two tabs, which filter both the list and the calendar:
+
+- **Pending**: requests waiting for you to confirm or decline.
+- **Reviewed**: requests you have confirmed or declined. A reviewed request
+  shows its appointment's payment status.
+
+On a phone, each request is a compact row that opens in a sheet.
 
 ### Review a booking request
 
-1. Open **Requests** from the Calendar tabs.
+1. Open **Requests** from the Calendar tabs, or select the request in the
+   **Notifications** tray.
 2. Select a request to open the review panel.
 3. Review the requested service, date, time and owner details.
-4. Link the request to an existing record, or allow the system to create the client and dog:
-   - **Search existing**: enter the client or dog name in **Search client or dog** and select the match.
-   - **New client and dog**: check the details prefilled from the owner's request.
-5. If payment is enabled, decide whether to request online payment when confirming.
-6. Select **Confirm** to accept the request and add it to your schedule, or **Decline** if you cannot accommodate it.
+4. Link the request to an existing record, or allow the system to create the
+   client and dog:
+    - **Search existing**: enter the client or dog name in **Search client or
+      dog** and select the match. If the owner's email matches an existing
+      client, the request opens already linked to that client, marked
+      **Matched by email**. If several clients share the email, you choose
+      between them.
+    - **New client and dog**: check the details prefilled from the owner's
+      request.
+5. If payment is enabled, decide whether to request online payment when
+   confirming.
+6. Select **Confirm and book** to accept the request, or **Decline request**
+   if you cannot accommodate it. Before declining, you are asked to confirm,
+   with the dog's name and requested time shown.
+
+### Expired requests
+
+If the requested time passes before you review a request, the request is
+marked **Expired** and leaves the **Pending** tab. The dog owner is not
+emailed. If the request was to move an existing appointment, that appointment
+stays as it was.
 
 ### Correct an owner's email address
 
@@ -63,7 +90,8 @@ If an owner entered a wrong email address during booking:
 
 1. Open the request or appointment review panel.
 2. Update the email under **Email**.
-3. Save the change. The old management links are invalidated, and booking confirmation emails are resent to the corrected address.
+3. Save the change. The old management links are invalidated, and booking
+   confirmation emails are resent to the corrected address.
 
 ## Calendar settings
 
@@ -115,4 +143,4 @@ Under **Settings → Payments**, practice owners and admins can connect a Stripe
 
 - Connect a Stripe account via Stripe-hosted onboarding.
 - Choose whether priced services require online payment when requests are accepted.
-- Track payment statuses across appointments: **Payment due**, **Paid**, **Not required**, **Refund due**, and **Refunded**.
+- Track payment statuses across appointments: **Payment due**, **Payment processing**, **Paid**, **Not required**, **Refund due**, and **Refunded**. **Payment processing** shows while a delayed payment method, such as Bacs Direct Debit, clears.
