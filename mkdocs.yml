@@ -1,4 +1,4 @@
-site_name: Wolds Record Knowledge Base
+site_name: Wolds Record Help
 docs_dir: knowledge-base
 site_description: End-user documentation for Wolds Record organisations and practitioners
 site_url: https://help.woldsrecord.com/
@@ -10,13 +10,51 @@ strict: true
 
 theme:
   name: material
+  language: en
+  # Inter is self-hosted from the app's pinned files, so no Google Fonts request.
+  font: false
+  logo: assets/brand/logo.png
+  favicon: assets/brand/logo.png
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
   features:
     - navigation.instant
     - navigation.sections
+    - navigation.top
+    - search.highlight
     - content.code.copy
+
+extra_css:
+  - stylesheets/fonts.css
+  - stylesheets/brand.css
+
+extra:
+  generator: false
+
+copyright: >-
+  &copy; Wolds Record ·
+  <a href="https://app.woldsrecord.com/">Open the app</a> ·
+  <a href="https://www.woldsrecord.com/">woldsrecord.com</a> ·
+  <a href="mailto:support@woldsrecord.com">support@woldsrecord.com</a>
 
 markdown_extensions:
   - admonition
+  - attr_list
+  - md_in_html
+  - pymdownx.blocks.admonition
   - toc:
       permalink: true
   - tables
