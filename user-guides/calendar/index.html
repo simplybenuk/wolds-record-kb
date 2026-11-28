@@ -454,7 +454,7 @@
   <span class="md-ellipsis">
     
   
-    Manage profile
+    Account and personal settings
   
 
     
@@ -815,6 +815,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#expired-requests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Expired requests
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#correct-an-owners-email-address" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1085,6 +1096,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#expired-requests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Expired requests
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#correct-an-owners-email-address" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1227,24 +1249,51 @@ Calendar is currently in beta. Owners and admins can turn beta access on or off 
 <h3 id="appointment-details">Appointment details<a class="headerlink" href="#appointment-details" title="Permanent link">&para;</a></h3>
 <p>Selecting an appointment opens a drawer with appointment details, linked client and dog information, and payment status.</p>
 <h2 id="booking-requests">Booking requests<a class="headerlink" href="#booking-requests" title="Permanent link">&para;</a></h2>
-<p>When dog owners request an appointment through your public booking page, their request appears under <strong>Requests</strong>.</p>
+<p>When dog owners request an appointment through your public booking page, their
+request appears under <strong>Requests</strong>. Pending requests also appear in the
+header <strong>Notifications</strong> tray, and selecting one opens it for review.</p>
+<p><strong>Requests</strong> has two tabs, which filter both the list and the calendar:</p>
+<ul>
+<li><strong>Pending</strong>: requests waiting for you to confirm or decline.</li>
+<li><strong>Reviewed</strong>: requests you have confirmed or declined. A reviewed request
+  shows its appointment's payment status.</li>
+</ul>
+<p>On a phone, each request is a compact row that opens in a sheet.</p>
 <h3 id="review-a-booking-request">Review a booking request<a class="headerlink" href="#review-a-booking-request" title="Permanent link">&para;</a></h3>
 <ol>
-<li>Open <strong>Requests</strong> from the Calendar tabs.</li>
+<li>Open <strong>Requests</strong> from the Calendar tabs, or select the request in the
+   <strong>Notifications</strong> tray.</li>
 <li>Select a request to open the review panel.</li>
 <li>Review the requested service, date, time and owner details.</li>
-<li>Link the request to an existing record, or allow the system to create the client and dog:</li>
-<li><strong>Search existing</strong>: enter the client or dog name in <strong>Search client or dog</strong> and select the match.</li>
-<li><strong>New client and dog</strong>: check the details prefilled from the owner's request.</li>
-<li>If payment is enabled, decide whether to request online payment when confirming.</li>
-<li>Select <strong>Confirm</strong> to accept the request and add it to your schedule, or <strong>Decline</strong> if you cannot accommodate it.</li>
+<li>Link the request to an existing record, or allow the system to create the
+   client and dog:<ul>
+<li><strong>Search existing</strong>: enter the client or dog name in <strong>Search client or
+  dog</strong> and select the match. If the owner's email matches an existing
+  client, the request opens already linked to that client, marked
+  <strong>Matched by email</strong>. If several clients share the email, you choose
+  between them.</li>
+<li><strong>New client and dog</strong>: check the details prefilled from the owner's
+  request.</li>
+</ul>
+</li>
+<li>If payment is enabled, decide whether to request online payment when
+   confirming.</li>
+<li>Select <strong>Confirm and book</strong> to accept the request, or <strong>Decline request</strong>
+   if you cannot accommodate it. Before declining, you are asked to confirm,
+   with the dog's name and requested time shown.</li>
 </ol>
+<h3 id="expired-requests">Expired requests<a class="headerlink" href="#expired-requests" title="Permanent link">&para;</a></h3>
+<p>If the requested time passes before you review a request, the request is
+marked <strong>Expired</strong> and leaves the <strong>Pending</strong> tab. The dog owner is not
+emailed. If the request was to move an existing appointment, that appointment
+stays as it was.</p>
 <h3 id="correct-an-owners-email-address">Correct an owner's email address<a class="headerlink" href="#correct-an-owners-email-address" title="Permanent link">&para;</a></h3>
 <p>If an owner entered a wrong email address during booking:</p>
 <ol>
 <li>Open the request or appointment review panel.</li>
 <li>Update the email under <strong>Email</strong>.</li>
-<li>Save the change. The old management links are invalidated, and booking confirmation emails are resent to the corrected address.</li>
+<li>Save the change. The old management links are invalidated, and booking
+   confirmation emails are resent to the corrected address.</li>
 </ol>
 <h2 id="calendar-settings">Calendar settings<a class="headerlink" href="#calendar-settings" title="Permanent link">&para;</a></h2>
 <p>Configure your booking experience under <strong>Settings</strong> in Calendar:</p>
@@ -1290,7 +1339,7 @@ Client payments through Stripe Connect are in test mode and currently limited to
 <ul>
 <li>Connect a Stripe account via Stripe-hosted onboarding.</li>
 <li>Choose whether priced services require online payment when requests are accepted.</li>
-<li>Track payment statuses across appointments: <strong>Payment due</strong>, <strong>Paid</strong>, <strong>Not required</strong>, <strong>Refund due</strong>, and <strong>Refunded</strong>.</li>
+<li>Track payment statuses across appointments: <strong>Payment due</strong>, <strong>Payment processing</strong>, <strong>Paid</strong>, <strong>Not required</strong>, <strong>Refund due</strong>, and <strong>Refunded</strong>. <strong>Payment processing</strong> shows while a delayed payment method, such as Bacs Direct Debit, clears.</li>
 </ul>
 
 
