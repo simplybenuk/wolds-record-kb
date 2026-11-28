@@ -64,13 +64,13 @@ On a phone, each request is a compact row that opens in a sheet.
 3. Review the requested service, date, time and owner details.
 4. Link the request to an existing record, or allow the system to create the
    client and dog:
-   - **Search existing**: enter the client or dog name in **Search client or
-     dog** and select the match. If the owner's email matches an existing
-     client, the request opens already linked to that client, marked
-     **Matched by email**. If several clients share the email, you choose
-     between them.
-   - **New client and dog**: check the details prefilled from the owner's
-     request.
+    - **Search existing**: enter the client or dog name in **Search client or
+      dog** and select the match. If the owner's email matches an existing
+      client, the request opens already linked to that client, marked
+      **Matched by email**. If several clients share the email, you choose
+      between them.
+    - **New client and dog**: check the details prefilled from the owner's
+      request.
 5. If payment is enabled, decide whether to request online payment when
    confirming.
 6. Select **Confirm and book** to accept the request, or **Decline request**

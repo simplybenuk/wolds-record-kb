@@ -28,9 +28,9 @@ Keep your full name accurate for reports and team visibility.
 
 1. Open the **Account** menu and select **Personal settings**.
 2. Under **Appearance**, choose a **Colour mode**:
-   - **System**: follows your device's light or dark appearance.
-   - **Light**
-   - **Dark**
+    - **System**: follows your device's light or dark appearance.
+    - **Light**
+    - **Dark**
 3. Select **Save personal settings**.
 
 ### Choose your default session form
