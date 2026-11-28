@@ -12,6 +12,7 @@ documentation. It no longer holds a copy of these pages.
 | Path | Purpose |
 | --- | --- |
 | `knowledge-base/` | Published Markdown pages, plus `CNAME` for the custom domain |
+| `knowledge-base/stylesheets/`, `knowledge-base/assets/` | Brand styles, self-hosted Inter, the logo and screenshots |
 | `mkdocs.yml` | Site configuration and navigation |
 | `requirements-docs.txt` | Pinned MkDocs and Material versions |
 | `.markdownlint-cli2.jsonc`, `.lychee.toml` | Lint and link-check settings |
@@ -101,6 +102,23 @@ git push origin gh-pages
 - Use the labels the app shows on screen.
 - Never include customer data, real client or dog names, secrets or internal
   URLs. Screenshots must use test data only.
+- Indent a list inside a numbered step by four spaces. With three, the
+  sublist joins the numbered list.
+- For a callout, use a block such as `/// note | Beta`, the text, then `///`.
+  GitHub's `> [!NOTE]` syntax shows as plain text on the site.
+
+## Look and feel
+
+The site follows the Wolds Record app's brand:
+
+- Colours in `knowledge-base/stylesheets/brand.css` copy the app's design
+  tokens (`app/globals.css` in the app repository) for light and dark mode.
+  Update them together when the app's tokens change.
+- Inter is self-hosted from the app's pinned files in
+  `knowledge-base/assets/fonts/inter/` under the SIL Open Font License, so
+  the site makes no Google Fonts requests.
+- The logo in `knowledge-base/assets/brand/` is the app's
+  `public/brand/wolds-record-logo-transparent-small.png`.
 
 ## Agents
 

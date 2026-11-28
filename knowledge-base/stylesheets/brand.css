@@ -1,0 +1,388 @@
+/*
+ * Wolds Record brand for the help site.
+ *
+ * Colours come from the app's design tokens (app/globals.css in
+ * simplybenuk/wolds-record): warm linen neutrals, Wolds green for actions and
+ * blue for links, with the app's dark theme for the slate scheme. Keep these
+ * in step with the app when its tokens change.
+ */
+
+:root {
+  --wr-neutral-50: #f8f5f0;
+  --wr-neutral-100: #f1ece2;
+  --wr-neutral-200: #e3dbcd;
+  --wr-neutral-300: #cfc4b3;
+  --wr-neutral-500: #8a7e6e;
+  --wr-neutral-700: #4f453b;
+  --wr-neutral-900: #1f1a16;
+  --wr-green-100: #dbe9d7;
+  --wr-green-500: #2f7a4a;
+  --wr-green-700: #1f5a36;
+  --wr-blue-100: #d6e3f5;
+  --wr-blue-600: #2d5ea8;
+  --wr-amber-200: #f5d6a4;
+  --wr-amber-500: #d79b35;
+  --wr-red-200: #f0b7b2;
+  --wr-red-700: #96352d;
+
+  --wr-radius-sm: 6px;
+  --wr-radius-md: 10px;
+  --wr-radius-lg: 14px;
+
+  --md-text-font: "Inter", "Inter Fallback", system-ui, -apple-system,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* Light: the app's default theme. */
+[data-md-color-scheme="default"] {
+  --wr-surface: var(--wr-neutral-100);
+  --wr-surface-raised: #fffdf9;
+  --wr-border: var(--wr-neutral-200);
+  --wr-text-muted: #6b6258;
+  --wr-header-bg: rgba(255, 253, 249, 0.88);
+
+  --md-default-bg-color: var(--wr-neutral-50);
+  --md-default-fg-color: var(--wr-neutral-900);
+  --md-default-fg-color--light: var(--wr-neutral-700);
+  --md-default-fg-color--lighter: var(--wr-neutral-500);
+  --md-default-fg-color--lightest: var(--wr-neutral-200);
+
+  /* The header and tabs use the primary pair: a light bar with dark text. */
+  --md-primary-fg-color: var(--wr-surface-raised);
+  --md-primary-fg-color--light: var(--wr-neutral-100);
+  --md-primary-fg-color--dark: var(--wr-neutral-200);
+  --md-primary-bg-color: var(--wr-neutral-900);
+  --md-primary-bg-color--light: rgba(31, 26, 22, 0.6);
+
+  --md-accent-fg-color: var(--wr-green-700);
+  --md-accent-fg-color--transparent: rgba(47, 122, 74, 0.1);
+
+  --md-typeset-color: var(--wr-neutral-900);
+  --md-typeset-a-color: var(--wr-blue-600);
+  --md-typeset-mark-color: rgba(215, 155, 53, 0.3);
+  --md-typeset-table-color: var(--wr-border);
+  --md-typeset-table-color--light: var(--wr-surface);
+
+  --md-code-bg-color: var(--wr-neutral-100);
+  --md-code-fg-color: var(--wr-neutral-900);
+
+  --md-footer-bg-color: var(--wr-neutral-900);
+  --md-footer-bg-color--dark: #16120f;
+  --md-footer-fg-color: var(--wr-neutral-50);
+  --md-footer-fg-color--light: rgba(248, 245, 240, 0.75);
+  --md-footer-fg-color--lighter: rgba(248, 245, 240, 0.55);
+}
+
+/* Dark: the app's dark theme. */
+[data-md-color-scheme="slate"] {
+  --wr-surface: #202824;
+  --wr-surface-raised: #202824;
+  --wr-border: #3d4b42;
+  --wr-text-muted: #b3bdb6;
+  --wr-header-bg: rgba(32, 40, 36, 0.92);
+
+  --md-hue: 150;
+  --md-default-bg-color: #161b19;
+  --md-default-fg-color: #edece4;
+  --md-default-fg-color--light: #b3bdb6;
+  --md-default-fg-color--lighter: #65766a;
+  --md-default-fg-color--lightest: #3d4b42;
+
+  --md-primary-fg-color: #202824;
+  --md-primary-fg-color--light: #2c3831;
+  --md-primary-fg-color--dark: #161b19;
+  --md-primary-bg-color: #edece4;
+  --md-primary-bg-color--light: rgba(237, 236, 228, 0.7);
+
+  --md-accent-fg-color: #94d5a6;
+  --md-accent-fg-color--transparent: rgba(148, 213, 166, 0.12);
+
+  --md-typeset-color: #edece4;
+  --md-typeset-a-color: #9fc8f5;
+  --md-typeset-table-color: var(--wr-border);
+  --md-typeset-table-color--light: var(--wr-surface);
+
+  --md-code-bg-color: #202824;
+  --md-code-fg-color: #edece4;
+
+  --md-footer-bg-color: #101412;
+  --md-footer-bg-color--dark: #0b0e0d;
+}
+
+/* Header: a light bar with a hairline, like the app's top navigation. */
+.md-header {
+  background-color: var(--wr-header-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--wr-border);
+  box-shadow: none;
+}
+
+.md-header--shadow {
+  box-shadow: 0 6px 14px rgba(31, 26, 22, 0.06);
+}
+
+.md-header__button.md-logo img,
+.md-nav__button.md-logo img {
+  height: 2rem;
+}
+
+.md-header__topic:first-child {
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+/* Search box: a field on the light bar rather than a translucent dark pill. */
+.md-search__form {
+  background-color: var(--md-default-bg-color);
+  border: 1px solid var(--wr-border);
+  border-radius: var(--wr-radius-md);
+}
+
+.md-search__form:hover {
+  background-color: var(--wr-surface);
+}
+
+[data-md-toggle="search"]:checked ~ .md-header .md-search__form {
+  border-radius: var(--wr-radius-md) var(--wr-radius-md) 0 0;
+}
+
+.md-search__input::placeholder,
+.md-search__input ~ .md-search__icon {
+  color: var(--wr-text-muted);
+}
+
+/* Navigation: the current page in Wolds green. */
+.md-nav__link--active,
+.md-nav__item .md-nav__link--active {
+  color: var(--wr-green-500);
+  font-weight: 600;
+}
+
+[data-md-color-scheme="slate"] .md-nav__link--active,
+[data-md-color-scheme="slate"] .md-nav__item .md-nav__link--active {
+  color: #94d5a6;
+}
+
+.md-nav__item--section > .md-nav__link {
+  color: var(--md-default-fg-color);
+  font-weight: 700;
+}
+
+/* Type: the app's heading weights and tight tracking. */
+.md-typeset {
+  font-size: 0.85rem;
+  line-height: 1.65;
+}
+
+.md-typeset h1,
+.md-typeset h2,
+.md-typeset h3,
+.md-typeset h4 {
+  color: var(--md-default-fg-color);
+  letter-spacing: -0.02em;
+}
+
+.md-typeset h1 {
+  font-weight: 700;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.md-typeset h2 {
+  font-weight: 650;
+  font-size: 1.4rem;
+  margin-top: 2.2rem;
+  padding-top: 1.4rem;
+  border-top: 1px solid var(--wr-border);
+}
+
+.md-typeset h3 {
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.md-typeset h1 + h2 {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.md-typeset a {
+  text-underline-offset: 0.15em;
+}
+
+.md-typeset a:hover {
+  text-decoration: underline;
+}
+
+.md-typeset strong {
+  font-weight: 600;
+}
+
+/* Screenshots: framed like the app's cards. */
+.md-typeset img {
+  border: 1px solid var(--wr-border);
+  border-radius: var(--wr-radius-lg);
+  box-shadow: 0 6px 14px rgba(31, 26, 22, 0.08);
+}
+
+.md-typeset .wr-card-grid img,
+.md-header img,
+.md-nav img {
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+/* Tables. */
+.md-typeset table:not([class]) {
+  border: 1px solid var(--wr-border);
+  border-radius: var(--wr-radius-md);
+  box-shadow: none;
+  font-size: 0.8rem;
+}
+
+.md-typeset table:not([class]) th {
+  background-color: var(--wr-surface);
+  font-weight: 600;
+}
+
+/* Admonitions: the app's alert surfaces. */
+.md-typeset .admonition,
+.md-typeset details {
+  border-width: 1px;
+  border-radius: var(--wr-radius-md);
+  box-shadow: none;
+  font-size: 0.8rem;
+}
+
+.md-typeset .admonition.note,
+.md-typeset .admonition.info {
+  border-color: var(--wr-blue-600);
+}
+
+.md-typeset .note > .admonition-title,
+.md-typeset .info > .admonition-title {
+  background-color: rgba(45, 94, 168, 0.1);
+}
+
+.md-typeset .admonition.tip,
+.md-typeset .admonition.success {
+  border-color: var(--wr-green-500);
+}
+
+.md-typeset .tip > .admonition-title,
+.md-typeset .success > .admonition-title {
+  background-color: rgba(47, 122, 74, 0.1);
+}
+
+.md-typeset .admonition.warning {
+  border-color: var(--wr-amber-500);
+}
+
+.md-typeset .warning > .admonition-title {
+  background-color: rgba(215, 155, 53, 0.14);
+}
+
+/* Home page: a short intro and cards for the main tasks. */
+.wr-intro {
+  font-size: 1.05rem;
+  color: var(--md-default-fg-color--light);
+  max-width: 38rem;
+}
+
+.md-typeset .wr-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: 0.8rem;
+  margin: 1.2rem 0 1.6rem;
+}
+
+.md-typeset .wr-card {
+  display: block;
+  padding: 1rem 1.1rem;
+  border: 1px solid var(--wr-border);
+  border-radius: var(--wr-radius-lg);
+  background-color: var(--wr-surface-raised);
+  color: var(--md-default-fg-color);
+  text-decoration: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.md-typeset .wr-card:hover,
+.md-typeset .wr-card:focus-visible {
+  border-color: var(--wr-green-500);
+  box-shadow: 0 6px 14px rgba(31, 26, 22, 0.08);
+  text-decoration: none;
+}
+
+.md-typeset .wr-card strong {
+  display: block;
+  margin-bottom: 0.2rem;
+  font-weight: 650;
+}
+
+.md-typeset .wr-card span {
+  color: var(--md-default-fg-color--light);
+  font-size: 0.78rem;
+  line-height: 1.5;
+}
+
+/* Footer links stay readable on the dark band. */
+.md-footer-meta a,
+.md-copyright a {
+  color: var(--md-footer-fg-color);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+:focus-visible {
+  outline: 3px solid var(--wr-blue-600);
+  outline-offset: 2px;
+}
+
+[data-md-color-scheme="slate"] :focus-visible {
+  outline-color: #9fc8f5;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .md-typeset .wr-card {
+    transition: none;
+  }
+}
+
+.md-typeset .wr-card-grid > p {
+  margin: 0;
+  display: flex;
+}
+
+.md-typeset .wr-card-grid > p > .wr-card {
+  flex: 1;
+}
+
+/* The green mark needs a light tile to stand out on the dark header. */
+[data-md-color-scheme="slate"] .md-logo img {
+  padding: 0.15rem;
+  border-radius: var(--wr-radius-sm);
+  background-color: #edece4;
+}
+
+/* A page title needs no permalink, and its hidden pilcrow would wrap onto a
+   line of its own. */
+.md-typeset h1 .headerlink {
+  display: none;
+}
+
+.md-typeset h1 + h2 {
+  margin-top: 1.2rem;
+}
+
+@media screen and (max-width: 44.9375em) {
+  .md-typeset h1 {
+    font-size: 1.6rem;
+  }
+
+  .md-typeset h2 {
+    font-size: 1.25rem;
+  }
+}

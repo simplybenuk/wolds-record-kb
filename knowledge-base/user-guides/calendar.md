@@ -2,8 +2,9 @@
 
 Calendar provides online booking, diary scheduling and appointment requests for canine rehabilitation practices.
 
-> [!NOTE]
-> Calendar is currently in beta. Owners and admins can turn beta access on or off in [Organisation settings](organisation-settings-and-export.md#beta-access).
+/// note | Beta
+Calendar is currently in beta. Owners and admins can turn beta access on or off in [Organisation settings](organisation-settings-and-export.md#beta-access).
+///
 
 ## Calendar navigation
 
@@ -136,8 +137,9 @@ Control booking constraints under **Settings → Booking rules**:
 
 ### Payments
 
-> [!NOTE]
-> Client payments through Stripe Connect are in test mode and currently limited to test organisations during the beta.
+/// note | Test mode
+Client payments through Stripe Connect are in test mode and currently limited to test organisations during the beta.
+///
 
 Under **Settings → Payments**, practice owners and admins can connect a Stripe account to take payments for bookings:
 

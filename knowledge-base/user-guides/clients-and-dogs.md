@@ -6,10 +6,10 @@ From **Clients**:
 
 1. Select **New client**.
 2. Enter:
-   - **Client name** (required)
-   - Email (optional)
-   - Phone (optional)
-   - Address (optional)
+    - **Client name** (required)
+    - Email (optional)
+    - Phone (optional)
+    - Address (optional)
 3. Select **Create client**.
 
 ## Add a dog to a client
